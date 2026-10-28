@@ -1,0 +1,7 @@
+Model,MAE,RMSE,R2,MAPE_Pct,Test_Obs
+Naive Baseline (Last Value),1139.02,1339.39,-0.0019,42.35,14
+Gradient Boosting Forecaster,1166.57,1454.07,-0.1808,50.19,14
+7-Day Moving Average,1282.94,1500.93,-0.2581,50.71,14
+Autoregressive Ridge,1305.5,1505.64,-0.266,54.16,14
+Random Forest Forecaster,1331.81,1586.09,-0.4049,57.72,14
+Seasonal Naive (7-Day Lag),1802.13,2305.32,-1.968,72.45,14

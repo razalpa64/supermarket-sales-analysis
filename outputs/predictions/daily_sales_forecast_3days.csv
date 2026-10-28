@@ -1,0 +1,4 @@
+Date,Forecasted_Daily_Revenue,Lower_95_CI,Upper_95_CI,Model_Used,Horizon_Days
+2019-03-31,4216.36,894.66,7538.07,Seasonal Naive (7-Day Lag),3
+2019-04-01,4312.08,990.38,7633.79,Seasonal Naive (7-Day Lag),3
+2019-04-02,4146.49,824.78,7468.2,Seasonal Naive (7-Day Lag),3

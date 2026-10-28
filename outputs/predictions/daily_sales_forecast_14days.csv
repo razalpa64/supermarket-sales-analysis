@@ -1,0 +1,15 @@
+Date,Forecasted_Daily_Revenue,Lower_95_CI,Upper_95_CI,Model_Used,Horizon_Days
+2019-03-31,4640.0,1318.29,7961.71,Naive Baseline (Last Value),14
+2019-04-01,4377.31,1055.6,7699.01,Naive Baseline (Last Value),14
+2019-04-02,3937.41,615.7,7259.12,Naive Baseline (Last Value),14
+2019-04-03,4149.16,827.45,7470.87,Naive Baseline (Last Value),14
+2019-04-04,4599.8,1278.1,7921.51,Naive Baseline (Last Value),14
+2019-04-05,4661.96,1340.26,7983.67,Naive Baseline (Last Value),14
+2019-04-06,4764.78,1443.07,8086.49,Naive Baseline (Last Value),14
+2019-04-07,4864.52,1542.82,8186.23,Naive Baseline (Last Value),14
+2019-04-08,4149.48,827.77,7471.19,Naive Baseline (Last Value),14
+2019-04-09,4309.23,987.53,7630.94,Naive Baseline (Last Value),14
+2019-04-10,4380.75,1059.04,7702.45,Naive Baseline (Last Value),14
+2019-04-11,4484.76,1163.06,7806.47,Naive Baseline (Last Value),14
+2019-04-12,4374.84,1053.13,7696.55,Naive Baseline (Last Value),14
+2019-04-13,4617.38,1295.67,7939.08,Naive Baseline (Last Value),14

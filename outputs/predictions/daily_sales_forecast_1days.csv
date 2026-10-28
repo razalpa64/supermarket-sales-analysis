@@ -1,0 +1,2 @@
+Date,Forecasted_Daily_Revenue,Lower_95_CI,Upper_95_CI,Model_Used,Horizon_Days
+2019-03-31,4054.22,732.51,7375.93,Autoregressive Ridge,1

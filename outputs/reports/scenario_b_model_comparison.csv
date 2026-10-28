@@ -1,0 +1,7 @@
+Algorithm,Train_MAE,Train_RMSE,Train_R2,Val_MAE,Val_RMSE,Val_R2,Val_MAPE_Pct,Train_Samples,Val_Samples
+Historical Mean Baseline,206.55,249.88,0.0,190.84,229.01,-0.0214,165.73,800,200
+Ridge Regression,203.79,247.83,0.0163,194.41,233.25,-0.0595,167.86,800,200
+Linear Regression (OLS),203.78,247.83,0.0164,194.43,233.28,-0.0598,167.88,800,200
+Random Forest Regressor,110.61,133.66,0.7139,209.1,250.58,-0.2228,178.17,800,200
+Gradient Boosting Regressor,165.83,205.62,0.3229,209.07,252.41,-0.2407,173.8,800,200
+Extra Trees Regressor,20.68,30.81,0.9848,215.11,265.81,-0.376,173.63,800,200
