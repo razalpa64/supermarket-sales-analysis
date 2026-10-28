@@ -65,7 +65,7 @@ st.set_page_config(
 # -----------------------------------------------------------------------------
 st.markdown(f"""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
     /* Global Background and Typography */
     html, body, [class*="css"], .stApp {{
@@ -74,17 +74,23 @@ st.markdown(f"""
         color: {COLOR_PRIMARY_TEXT} !important;
     }}
 
+    /* Top Streamlit Header Overrides (Remove Dark Bar) */
+    header[data-testid="stHeader"] {{
+        background-color: #FFFFFF !important;
+        border-bottom: 1px solid {COLOR_BORDER} !important;
+    }}
+    header[data-testid="stHeader"] * {{
+        color: {COLOR_PRIMARY_TEXT} !important;
+    }}
+    div[data-testid="stDecoration"] {{
+        display: none !important;
+    }}
+
     /* Main Container Padding */
     .block-container {{
         padding-top: 1.8rem !important;
         padding-bottom: 2.5rem !important;
-        max-width: 1400px !important;
-    }}
-
-    /* Monospace Tabular Figures */
-    .num-mono {{
-        font-family: 'JetBrains Mono', monospace !important;
-        font-variant-numeric: tabular-nums;
+        max-width: 1380px !important;
     }}
 
     /* Clean Enterprise Card */
@@ -99,37 +105,47 @@ st.markdown(f"""
 
     /* KPI Metric Tile */
     .kpi-tile {{
-        background-color: {COLOR_CARD_SURFACE};
+        background-color: #FFFFFF;
         border: 1px solid {COLOR_BORDER};
         border-radius: 8px;
-        padding: 1.1rem 1.25rem;
+        padding: 1.05rem 1.2rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+        height: 100%;
+        min-height: 105px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-        height: 100%;
-        min-height: 110px;
     }}
     .kpi-label {{
-        font-size: 0.75rem;
+        font-size: 0.72rem;
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.05em;
         color: {COLOR_SECONDARY_TEXT};
-        margin-bottom: 0.35rem;
+        margin-bottom: 0.25rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }}
     .kpi-value {{
-        font-size: 1.65rem;
+        font-size: 1.55rem;
         font-weight: 700;
         letter-spacing: -0.02em;
         color: {COLOR_PRIMARY_TEXT};
-        font-family: 'JetBrains Mono', monospace;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.2;
     }}
     .kpi-sub {{
-        font-size: 0.76rem;
+        font-size: 0.75rem;
         color: {COLOR_SECONDARY_TEXT};
         font-weight: 500;
         margin-top: 0.35rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }}
 
     /* Page Header */
@@ -160,15 +176,6 @@ st.markdown(f"""
         line-height: 1.5;
     }}
 
-    /* Section Headings */
-    .section-title {{
-        font-size: 1.15rem;
-        font-weight: 600;
-        color: {COLOR_PRIMARY_TEXT};
-        margin-top: 1.2rem;
-        margin-bottom: 0.8rem;
-    }}
-
     /* Custom Button Overrides */
     div.stButton > button:first-child {{
         background-color: {COLOR_PRIMARY_ACCENT} !important;
@@ -187,10 +194,21 @@ st.markdown(f"""
         color: #FFFFFF !important;
     }}
 
-    /* Sidebar Overrides */
+    /* Sidebar Clean Styling */
     section[data-testid="stSidebar"] {{
         background-color: #FFFFFF !important;
         border-right: 1px solid {COLOR_BORDER} !important;
+    }}
+    section[data-testid="stSidebar"] p,
+    section[data-testid="stSidebar"] span,
+    section[data-testid="stSidebar"] div {{
+        color: {COLOR_PRIMARY_TEXT};
+    }}
+    section[data-testid="stSidebar"] label[data-testid="stWidgetLabel"] p,
+    section[data-testid="stSidebar"] label[data-testid="stWidgetLabel"] span {{
+        color: #334155 !important;
+        font-size: 0.8rem !important;
+        font-weight: 600 !important;
     }}
     section[data-testid="stSidebar"] .stRadio label {{
         color: {COLOR_PRIMARY_TEXT} !important;
@@ -202,14 +220,35 @@ st.markdown(f"""
         font-weight: 600 !important;
     }}
 
-    /* Form Input Controls */
-    .stSelectbox div[data-baseweb="select"] > div,
+    /* Input Controls, Multiselect & Selectbox */
+    div[data-baseweb="select"] > div,
+    div[data-baseweb="input"] > div,
     .stTextInput input,
-    .stNumberInput input {{
+    .stNumberInput input,
+    .stDateInput input {{
         background-color: #FFFFFF !important;
-        border: 1px solid {COLOR_BORDER} !important;
+        border: 1px solid #CBD5E1 !important;
         border-radius: 6px !important;
         color: {COLOR_PRIMARY_TEXT} !important;
+    }}
+    div[data-baseweb="select"] svg {{
+        fill: #64748B !important;
+    }}
+
+    /* Multiselect Tag Chips (Soft Enterprise Blue Pills) */
+    span[data-baseweb="tag"] {{
+        background-color: #EFF6FF !important;
+        border: 1px solid #BFDBFE !important;
+        border-radius: 4px !important;
+        padding: 0.1rem 0.35rem !important;
+    }}
+    span[data-baseweb="tag"] span {{
+        color: #1D4ED8 !important;
+        font-weight: 500 !important;
+        font-size: 0.78rem !important;
+    }}
+    span[data-baseweb="tag"] svg {{
+        fill: #1D4ED8 !important;
     }}
 
     /* Badge indicators */
@@ -307,21 +346,32 @@ model_scenario_a, model_scenario_b = load_trained_pipelines()
 # -----------------------------------------------------------------------------
 # PLOTLY ENTERPRISE THEME HELPER
 # -----------------------------------------------------------------------------
-def format_plotly_figure(fig: go.Figure, title: str = "", height: int = 380) -> go.Figure:
+def format_plotly_figure(
+    fig: go.Figure,
+    title: str = "",
+    height: int = 370,
+    show_legend: bool = True,
+) -> go.Figure:
     """
-    Applies the consistent white enterprise theme to any Plotly figure.
+    Applies the consistent white enterprise theme to any Plotly figure,
+    ensuring zero collision between title and legend.
     """
     fig.update_layout(
         title=dict(
             text=f"<b>{title}</b>" if title else "",
-            font=dict(family="Inter, sans-serif", size=13, color=COLOR_PRIMARY_TEXT),
+            font=dict(family="Inter, -apple-system, sans-serif", size=13, color=COLOR_PRIMARY_TEXT),
             x=0.01,
-            y=0.96,
+            y=0.98,
         ),
         paper_bgcolor=COLOR_CARD_SURFACE,
         plot_bgcolor=COLOR_CARD_SURFACE,
-        font=dict(family="Inter, sans-serif", size=11, color=COLOR_SECONDARY_TEXT),
-        margin=dict(l=30, r=20, t=45 if title else 25, b=30),
+        font=dict(family="Inter, -apple-system, sans-serif", size=11, color=COLOR_SECONDARY_TEXT),
+        margin=dict(
+            l=40,
+            r=30,
+            t=55 if title else 25,
+            b=55 if show_legend else 30,
+        ),
         height=height,
         xaxis=dict(
             showgrid=True,
@@ -339,14 +389,15 @@ def format_plotly_figure(fig: go.Figure, title: str = "", height: int = 380) -> 
             title_font=dict(size=11, color=COLOR_PRIMARY_TEXT),
             linecolor=COLOR_BORDER,
         ),
+        showlegend=show_legend,
         legend=dict(
             orientation="h",
-            yanchor="bottom",
-            y=1.02,
-            xanchor="right",
-            x=1,
+            yanchor="top",
+            y=-0.22,
+            xanchor="center",
+            x=0.5,
             font=dict(size=10, color=COLOR_PRIMARY_TEXT),
-        ),
+        ) if show_legend else None,
     )
     return fig
 
@@ -469,64 +520,73 @@ if nav_section == "Overview Dashboard":
         best_branch = branch_rev.idxmax() if not branch_rev.empty else "N/A"
         best_branch_rev = float(branch_rev.max()) if not branch_rev.empty else 0.0
 
-        # Row 1: KPI Cards
-        k1, k2, k3, k4, k5, k6 = st.columns(6)
+        # Row 1: Primary Revenue & Order Metrics (3 Columns)
+        k1, k2, k3 = st.columns(3)
 
         with k1:
             st.markdown(f"""
             <div class="kpi-tile">
                 <div class="kpi-label">Total Revenue</div>
                 <div class="kpi-value">{CURRENCY_SYMBOL}{total_rev:,.2f}</div>
-                <div class="kpi-sub">Filtered Period Total</div>
+                <div class="kpi-sub">Filtered Period Gross Turnover</div>
             </div>
             """, unsafe_allow_html=True)
 
         with k2:
+            daily_avg_orders = total_txns / max(1, (end_d - start_d).days + 1)
             st.markdown(f"""
             <div class="kpi-tile">
-                <div class="kpi-label">Transactions</div>
-                <div class="kpi-value">{total_txns:,}</div>
-                <div class="kpi-sub">{total_txns / max(1, (end_d - start_d).days + 1):.1f} Orders / Day</div>
+                <div class="kpi-label">Total Transactions</div>
+                <div class="kpi-value">{total_txns:,} Orders</div>
+                <div class="kpi-sub">{daily_avg_orders:.1f} Orders / Day Average</div>
             </div>
             """, unsafe_allow_html=True)
 
         with k3:
             st.markdown(f"""
             <div class="kpi-tile">
-                <div class="kpi-label">Avg Ticket Value</div>
-                <div class="kpi-value">{CURRENCY_SYMBOL}{avg_txn_val:.2f}</div>
-                <div class="kpi-sub">Per Checkout</div>
+                <div class="kpi-label">Average Basket Value</div>
+                <div class="kpi-value">{CURRENCY_SYMBOL}{avg_txn_val:,.2f}</div>
+                <div class="kpi-sub">Average Revenue Per Order</div>
             </div>
             """, unsafe_allow_html=True)
 
+        st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
+
+        # Row 2: Units Sold, Customer Survey & Store Ranking (3 Columns)
+        k4, k5, k6 = st.columns(3)
+
         with k4:
+            units_per_order = total_units / max(1, total_txns)
             st.markdown(f"""
             <div class="kpi-tile">
-                <div class="kpi-label">Units Sold</div>
-                <div class="kpi-value">{total_units:,}</div>
-                <div class="kpi-sub">{total_units / max(1, total_txns):.1f} Units / Basket</div>
+                <div class="kpi-label">Total Units Sold</div>
+                <div class="kpi-value">{total_units:,} Units</div>
+                <div class="kpi-sub">{units_per_order:.1f} Units Per Basket Average</div>
             </div>
             """, unsafe_allow_html=True)
 
         with k5:
             st.markdown(f"""
             <div class="kpi-tile">
-                <div class="kpi-label">Customer Rating</div>
-                <div class="kpi-value">{avg_rating:.2f} <span style="font-size:0.85rem; color:{COLOR_SECONDARY_TEXT};">/10</span></div>
-                <div class="kpi-sub">Survey Score Average</div>
+                <div class="kpi-label">Customer Satisfaction Rating</div>
+                <div class="kpi-value">{avg_rating:.2f} <span style="font-size:0.92rem; color:{COLOR_SECONDARY_TEXT}; font-weight:500;">/ 10</span></div>
+                <div class="kpi-sub">Empirical Survey Average</div>
             </div>
             """, unsafe_allow_html=True)
 
         with k6:
+            branch_city_name = 'Yangon' if best_branch=='A' else ('Mandalay' if best_branch=='B' else 'Naypyitaw')
+            branch_share = (best_branch_rev / max(1, total_rev)) * 100
             st.markdown(f"""
             <div class="kpi-tile">
-                <div class="kpi-label">Top Branch</div>
+                <div class="kpi-label">Leading Store Branch</div>
                 <div class="kpi-value">Branch {best_branch}</div>
-                <div class="kpi-sub">{CURRENCY_SYMBOL}{best_branch_rev:,.0f} ({best_branch_rev / max(1, total_rev) * 100:.1f}%)</div>
+                <div class="kpi-sub">{branch_city_name} — {CURRENCY_SYMBOL}{best_branch_rev:,.0f} ({branch_share:.1f}% Share)</div>
             </div>
             """, unsafe_allow_html=True)
 
-        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("<div style='height: 18px;'></div>", unsafe_allow_html=True)
 
         # Row 2: Charts (Revenue Trend & Sales by Product Category)
         col_c1, col_c2 = st.columns([1.6, 1.4])
@@ -551,7 +611,7 @@ if nav_section == "Overview Dashboard":
                 name="7-Day Moving Avg",
                 line=dict(color=COLOR_PRIMARY_ACCENT, width=2.5),
             ))
-            format_plotly_figure(fig_trend, title=f"Daily Revenue Velocity with 7-Day Moving Average ({CURRENCY_SYMBOL})", height=340)
+            format_plotly_figure(fig_trend, title=f"Daily Revenue Velocity with 7-Day Moving Average ({CURRENCY_SYMBOL})", height=360, show_legend=True)
             st.plotly_chart(fig_trend, use_container_width=True)
 
         with col_c2:
@@ -569,7 +629,7 @@ if nav_section == "Overview Dashboard":
                 color_discrete_sequence=[COLOR_PRIMARY_ACCENT],
                 labels={"Total": f"Revenue ({CURRENCY_SYMBOL})", "Product line": ""},
             )
-            format_plotly_figure(fig_prod, title=f"Revenue by Product Category ({CURRENCY_SYMBOL})", height=340)
+            format_plotly_figure(fig_prod, title=f"Revenue by Product Category ({CURRENCY_SYMBOL})", height=360, show_legend=False)
             st.plotly_chart(fig_prod, use_container_width=True)
 
         # Row 3: Branch Performance & Payment Distribution
@@ -586,7 +646,7 @@ if nav_section == "Overview Dashboard":
                 color_discrete_sequence=[COLOR_PRIMARY_ACCENT, "#0EA5E9", "#6366F1"],
                 labels={"Total": f"Revenue ({CURRENCY_SYMBOL})"},
             )
-            format_plotly_figure(fig_branch, title=f"Branch Revenue Comparison by City ({CURRENCY_SYMBOL})", height=300)
+            format_plotly_figure(fig_branch, title=f"Branch Revenue Comparison by City ({CURRENCY_SYMBOL})", height=340, show_legend=True)
             st.plotly_chart(fig_branch, use_container_width=True)
 
         with col_c4:
@@ -599,7 +659,7 @@ if nav_section == "Overview Dashboard":
                 color_discrete_sequence=CHART_COLOR_PALETTE[:3],
             )
             fig_pay.update_traces(textposition="inside", textinfo="percent+label")
-            format_plotly_figure(fig_pay, title=f"Revenue Share by Payment Method", height=300)
+            format_plotly_figure(fig_pay, title="Revenue Share by Payment Method", height=340, show_legend=True)
             st.plotly_chart(fig_pay, use_container_width=True)
 
         # Empirical Highlights Card
@@ -928,7 +988,8 @@ elif nav_section == "Supermarket Sales Prediction System":
             format_plotly_figure(
                 fig_fc_plotly,
                 title=f"Historical Sales, Held-Out Test Evaluation, and Future {horizon_selected}-Day Forecast ({CURRENCY_SYMBOL})",
-                height=400,
+                height=420,
+                show_legend=True,
             )
             st.plotly_chart(fig_fc_plotly, use_container_width=True)
 
@@ -1010,7 +1071,7 @@ elif nav_section == "Model Evaluation":
                 color_discrete_sequence=CHART_COLOR_PALETTE[:len(df_comp_a)],
                 labels={"Val_RMSE": f"Validation RMSE ({CURRENCY_SYMBOL}) - Lower is Better"},
             )
-            format_plotly_figure(fig_comp, title=f"Validation RMSE Comparison Across Candidate Algorithms ({CURRENCY_SYMBOL})", height=320)
+            format_plotly_figure(fig_comp, title=f"Validation RMSE Comparison Across Candidate Algorithms ({CURRENCY_SYMBOL})", height=340, show_legend=False)
             st.plotly_chart(fig_comp, use_container_width=True)
 
         if rep_b_file.exists():
@@ -1098,7 +1159,7 @@ elif nav_section == "Exploratory Data Analysis":
                 color_discrete_sequence=[COLOR_PRIMARY_ACCENT],
                 labels={"Total": f"Transaction Spend ({CURRENCY_SYMBOL})"},
             )
-            format_plotly_figure(fig_hist, title=f"Distribution of Transaction Total Spend ({CURRENCY_SYMBOL})", height=320)
+            format_plotly_figure(fig_hist, title=f"Distribution of Transaction Total Spend ({CURRENCY_SYMBOL})", height=340, show_legend=False)
             st.plotly_chart(fig_hist, use_container_width=True)
 
         with e_col2:
@@ -1109,7 +1170,7 @@ elif nav_section == "Exploratory Data Analysis":
                 color_discrete_sequence=["#0EA5E9"],
                 labels={"Quantity": "Cart Units Purchased"},
             )
-            format_plotly_figure(fig_qty, title="Distribution of Cart Units Sold Per Transaction", height=320)
+            format_plotly_figure(fig_qty, title="Distribution of Cart Units Sold Per Transaction", height=340, show_legend=False)
             st.plotly_chart(fig_qty, use_container_width=True)
 
         # Row 2: Customer Rating by Branch & Spending by Customer Type
@@ -1123,7 +1184,7 @@ elif nav_section == "Exploratory Data Analysis":
                 color="Branch",
                 color_discrete_sequence=[COLOR_PRIMARY_ACCENT, "#0EA5E9", "#6366F1"],
             )
-            format_plotly_figure(fig_box, title="Customer Survey Rating by Store Branch (1-10 Scale)", height=320)
+            format_plotly_figure(fig_box, title="Customer Survey Rating by Store Branch (1-10 Scale)", height=340, show_legend=False)
             st.plotly_chart(fig_box, use_container_width=True)
 
         with e_col4:
@@ -1135,7 +1196,7 @@ elif nav_section == "Exploratory Data Analysis":
                 color_discrete_sequence=[COLOR_PRIMARY_ACCENT, "#F59E0B"],
                 labels={"Total": f"Transaction Total ({CURRENCY_SYMBOL})"},
             )
-            format_plotly_figure(fig_cust_box, title=f"Spending Distribution by Loyalty Tier & Gender ({CURRENCY_SYMBOL})", height=320)
+            format_plotly_figure(fig_cust_box, title=f"Spending Distribution by Loyalty Tier & Gender ({CURRENCY_SYMBOL})", height=340, show_legend=True)
             st.plotly_chart(fig_cust_box, use_container_width=True)
 
         # Row 3: Hourly Traffic & Day of Week
@@ -1150,7 +1211,7 @@ elif nav_section == "Exploratory Data Analysis":
                 color_discrete_sequence=[COLOR_PRIMARY_ACCENT],
                 labels={"Hour": "Hour of Day (24-Hour)", "count": "Transactions"},
             )
-            format_plotly_figure(fig_hour, title="Customer Checkout Velocity by Hour of Day", height=320)
+            format_plotly_figure(fig_hour, title="Customer Checkout Velocity by Hour of Day", height=340, show_legend=False)
             st.plotly_chart(fig_hour, use_container_width=True)
 
         with e_col6:
@@ -1169,7 +1230,7 @@ elif nav_section == "Exploratory Data Analysis":
                 color_discrete_sequence=["#6366F1"],
                 labels={"DayName": "Day of Week", "sum": f"Turnover ({CURRENCY_SYMBOL})"},
             )
-            format_plotly_figure(fig_dow, title=f"Total Revenue by Day of the Week ({CURRENCY_SYMBOL})", height=320)
+            format_plotly_figure(fig_dow, title=f"Total Revenue by Day of the Week ({CURRENCY_SYMBOL})", height=340, show_legend=False)
             st.plotly_chart(fig_dow, use_container_width=True)
 
 
